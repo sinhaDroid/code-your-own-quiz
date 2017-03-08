@@ -53,10 +53,10 @@ answers = {
 
 alive=True
 chances, difficultylevel=1, 'easy'
+min_chances=0
 
 def assignedifficulty():
 	"""Choose your ``difficulty level``. """
-	global difficultylevel
 
 	print "Enter your difficulty level:"
 	difficultylevel=raw_input("Enter easy, medium, or hard: ")
@@ -71,7 +71,7 @@ def assignedchances():
 	global chances
 
 	chances=raw_input("Enter your number of chances per question: ")
-	while not chances.isdigit() or int(chances) < 1:
+	while not chances.isdigit() or int(chances) < min_chances:
 		chances = raw_input("Please enter a number greater than 0: ")
 	chances=int(chances)
 	print ""
@@ -96,7 +96,7 @@ def answerquestion(index, question):
             print question
             print '-' * 20 + '\n'
             break
-        elif chance > 1:
+        elif chance > min_chances:
             print "That is incorrect. Try again."
             chance += -1
             print chance, "chance(s) left. \n"
@@ -120,10 +120,7 @@ def startquiz():
     question = questions[difficultylevel]
     assignedchances()
 
-    print "Let's get started:"
-    print "=" * 20
-    print question
-    print "=" * 20 + '\n'
+    print "Let's get started:" + "\n" + "=" * 20 + "\n" + question + "=" * 20 + '\n'
 
     for index in xrange(len(answers[difficultylevel])):
         question = answerquestion(index, question)
