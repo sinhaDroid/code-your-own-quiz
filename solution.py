@@ -53,7 +53,7 @@ answers = {
 
 alive=True
 chances, difficultylevel=1, 'easy'
-min_chances=0
+min_chances=1
 
 def assignedifficulty():
 	"""Choose your ``difficulty level``. """
@@ -87,14 +87,12 @@ def answerquestion(index, question):
     chance = chances
     answer = answers[difficultylevel][index]
 
-    while chance > 0:
+    while chance > min_chances-1:
         guess = raw_input("What goes in ___%s___: " % str(index+1))
         if checkanswer(answer, guess):
-            print "Correct! \n"
-            print '-' * 20
+            print "Correct! \n" + '-' * 20
             question = question.replace('___%s___' % str(index+1), guess)
-            print question
-            print '-' * 20 + '\n'
+            print question + "\n" + '-' * 20 + '\n'
             break
         elif chance > min_chances:
             print "That is incorrect. Try again."
